@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Agenda Peluquería</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>AGENDA DE CITAS</h1>
+  <button onclick="location.href='clientes.html'">Clientes</button>
+</header>
+
+<div class="year-nav">
+  <button id="prevYear">«</button>
+  <h2 id="yearLabel"></h2>
+  <button id="nextYear">»</button>
+</div>
+
+<div class="global-buttons">
+  <button id="btnHabilitar">Habilitar</button>
+  <button id="btnDeshabilitar">Deshabilitar</button>
+  <button id="btnFestivo">Festivo</button>
+  <span id="totalCitas" style="margin-left:20px; font-weight:bold;">Total citas: 0</span>
+</div>
+
+<div id="calendar"></div>
+
+<!-- MODAL DÍA -->
+<div id="dayView" class="modal">
+  <div class="modal-content">
+     <div class="modal-header">
+    <span class="close" id="closeDayView">&times;</span>
+    <h2 id="dayTitle"></h2></div>
+    <button id="exportarPDF" class="btn-pdf">
+  📄 Exportar día a PDF
+</button>
+
+
+    <div id="horasContainer"></div>
+
+    <div id="formCita" class="form-cita" style="display:none;">
+      <h3>Nueva Cita</h3>
+      <label>Buscar cliente</label>
+      <input type="text" id="buscadorCliente" placeholder="Escribe un nombre...">
+
+      
+      <label>Cliente</label>
+      <select id="selectCliente"></select>
+
+
+      <label>Teléfono</label>
+      <input type="text" id="telefonoCita" readonly>
+
+      <label>Servicio</label>
+      <select id="servicioCita">
+        <option value="">Seleccionar</option>
+        <option>Corte</option>
+        <option>Peinado</option>
+        <option>Tinte</option>
+        <option>Alisado</option>
+        <option>Mechas</option>
+        <option>Tratamiento</option>
+        <option>Lavado</option>
+        <option value="otros">Otros</option>
+      </select>
+
+      <input type="text" id="servicioPersonalizado" placeholder="Describe el servicio" style="display:none;">
+
+      <button id="guardarCita">Guardar</button>
+      <button onclick="cerrarForm()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</body>
+</html>

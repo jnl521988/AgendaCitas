@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Clientes</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>CLIENTES</h1>
+  <button onclick="location.href='index.html'">Volver</button>
+</header>
+
+<button id="nuevoCliente">Nuevo Cliente</button>
+<div style="display:flex; justify-content: space-between; align-items: center; margin:10px 20px;">
+  <input type="text" id="buscadorClientesTabla" placeholder="🔍 Buscar cliente..." style="padding:6px; width:250px;">
+  <div id="totalClientes" style="font-weight:bold;">Total: 0</div>
+</div>
+
+<table>
+  <thead>
+    <tr><th>Nombre</th><th>Teléfono</th><th>Detalle</th><th>Acciones</th></tr>
+  </thead>
+  <tbody id="tablaClientes"></tbody>
+</table>
+<!-- MODAL NUEVO CLIENTE -->
+<div id="modalCliente" class="modal">
+  <div class="modal-content">
+    <!-- CABECERA -->
+    <div class="modal-header">
+      <h2>Nuevo Cliente</h2>
+      <span class="close" id="closeCliente">&times;</span>
+    </div>
+
+    <!-- FORMULARIO -->
+    <form id="formCliente" class="form-cita">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" placeholder="Nombre completo" required>
+
+      <label for="telefono">Teléfono</label>
+      <input type="text" id="telefono" placeholder="Número de teléfono">
+
+      <label for="detalle">Detalle / Notas</label>
+      <textarea id="detalle" placeholder="Información adicional" rows="3"></textarea>
+
+      <!-- BOTONES -->
+      <div style="display:flex; justify-content: space-between; margin-top:10px;">
+        <button type="submit" id="guardarCliente" style="background:#2e7d32; color:white;">Guardar</button>
+        <button type="button" id="cancelCliente" style="background:#dc5555; color:white;">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<script src="clientes.js"></script>
+</body>
+</html>
