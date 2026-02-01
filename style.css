@@ -417,15 +417,20 @@ table button:hover {
   margin-left: 10px;
 }
 
-#importarDatosBtn {
-  background: #8e24aa;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-left: 6px;
+.btn-importar {
+  background:#2196f3;
+  color:white;
+  padding:8px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:bold;
 }
+
+.btn-importar input {
+  position:absolute;
+  left:-9999px;
+}
+
 
 #exportarDatos:hover,
 #importarDatosBtn:hover {

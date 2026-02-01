@@ -9,17 +9,21 @@
 
 <header>
   <h1>AGENDA DE CITAS</h1>
-  <button onclick="location.href='clientes.html'">Clientes</button>
   <button id="exportarDatos">⬇ Exportar datos</button>
-<button id="importarDatosBtn">⬆ Importar datos</button>
-<input type="file" id="importarArchivo" accept=".json" style="display:none;">
+  <label class="btn-importar">
+  Importar copia
+  <input type="file" id="importFile" accept=".json">
+</label>
+
+
+  <button onclick="location.href='clientes.html'">Clientes</button>
 
 </header>
 
 <div class="year-nav">
   <button id="prevYear">«</button>
   <h2 id="yearLabel"></h2>
-  <button id="nextYear">»</button>
+  <button id="nextYear">»</button>yy
 </div>
 
 <div class="global-buttons">
