@@ -419,3 +419,66 @@ function renderTotalCitas() {
   const total = citas.filter(c => new Date(c.fecha).getFullYear() === year).length;
   document.getElementById("totalCitas").textContent = `Total Citas Año: ${total}`;
 }
+// ===============================
+// EXPORTAR DATOS A JSON
+// ===============================
+document.getElementById("exportarDatos").addEventListener("click", () => {
+
+  const copia = {};
+
+  // Guardamos TODO el localStorage
+  for (let i = 0; i < localStorage.length; i++) {
+    const clave = localStorage.key(i);
+    copia[clave] = localStorage.getItem(clave);
+  }
+
+  const blob = new Blob([JSON.stringify(copia, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "backup_agenda.json";
+  a.click();
+
+  URL.revokeObjectURL(url);
+});
+// ===============================
+// IMPORTAR DATOS DESDE JSON
+// ===============================
+const inputArchivo = document.getElementById("importarArchivo");
+
+document.getElementById("importarDatosBtn").addEventListener("click", () => {
+  inputArchivo.click();
+});
+
+inputArchivo.addEventListener("change", (e) => {
+  const archivo = e.target.files[0];
+  if (!archivo) return;
+
+  const lector = new FileReader();
+
+  lector.onload = (event) => {
+    try {
+      const datos = JSON.parse(event.target.result);
+
+      if (confirm("Esto reemplazará todos los datos actuales. ¿Continuar?")) {
+
+        // Limpiamos antes
+        localStorage.clear();
+
+        // Restauramos todo
+        for (let clave in datos) {
+          localStorage.setItem(clave, datos[clave]);
+        }
+
+        alert("Datos importados correctamente ✅");
+        location.reload(); // recarga para actualizar la app
+      }
+
+    } catch (error) {
+      alert("Archivo no válido ❌");
+    }
+  };
+
+  lector.readAsText(archivo);
+});

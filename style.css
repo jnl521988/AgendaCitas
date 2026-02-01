@@ -407,3 +407,27 @@ table button:hover {
 #formNuevoCliente button.cancelCliente:hover {
   background: linear-gradient(135deg, #b71c1c, #d32f2f);
 }
+#exportarDatos {
+  background: #1976d2;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+#importarDatosBtn {
+  background: #8e24aa;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 6px;
+}
+
+#exportarDatos:hover,
+#importarDatosBtn:hover {
+  opacity: 0.9;
+}
