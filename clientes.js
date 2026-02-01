@@ -1,4 +1,4 @@
-let clientes = JSON.parse(localStorage.getItem("clientes")) || [];
+let clientes = JSON.parse(localStorage.getItem("agenda_clientes")) || [];
 let editId=null;
 
 const tablaClientes=document.getElementById("tablaClientes");
