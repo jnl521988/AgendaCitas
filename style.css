@@ -408,17 +408,16 @@ table button:hover {
   background: linear-gradient(135deg, #b71c1c, #d32f2f);
 }
 #exportarDatos {
-  background: #1976d2;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-left: 10px;
+  background:#2196f3;
+  color:white;
+  padding:8px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:bold;
 }
 
 .btn-importar {
-  background:#2196f3;
+  background:#36f321;
   color:white;
   padding:8px 12px;
   border-radius:6px;

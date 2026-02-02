@@ -420,38 +420,36 @@ function renderTotalCitas() {
   document.getElementById("totalCitas").textContent = `Total Citas Año: ${total}`;
 }
 // ===============================
-// EXPORTAR DATOS A JSON
+// EXPORTAR SOLO DATOS DE LA AGENDA
 // ===============================
 document.getElementById("exportarDatos").addEventListener("click", () => {
 
-  const copia = {};
+  const backupAgenda = {
+    app: "AGENDA_CITAS_V1",   // firma para saber que es válido
+    fechaExportacion: new Date().toISOString(),
+    clientes: JSON.parse(localStorage.getItem("clientes") || "[]"),
+    citas: JSON.parse(localStorage.getItem("citas") || "[]"),
+    estadosDias: JSON.parse(localStorage.getItem("estadosDias") || "{}")
+  };
 
-  // Guardamos TODO el localStorage
-  for (let i = 0; i < localStorage.length; i++) {
-    const clave = localStorage.key(i);
-    copia[clave] = localStorage.getItem(clave);
-  }
-
-  const blob = new Blob([JSON.stringify(copia, null, 2)], { type: "application/json" });
+  const blob = new Blob([JSON.stringify(backupAgenda, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
 
   const a = document.createElement("a");
   a.href = url;
-  a.download = "backup_agenda.json";
+  a.download = "backup_agenda_citas.json";
   a.click();
 
   URL.revokeObjectURL(url);
 });
-// ===============================
-// IMPORTAR DATOS DESDE JSON
-// ===============================
-const inputArchivo = document.getElementById("importarArchivo");
 
-document.getElementById("importarDatosBtn").addEventListener("click", () => {
-  inputArchivo.click();
-});
+// ===============================
+// IMPORTAR DATOS DE AGENDA
+// ===============================
+const importInput = document.getElementById("importFile");
 
-inputArchivo.addEventListener("change", (e) => {
+importInput.addEventListener("change", (e) => {
+
   const archivo = e.target.files[0];
   if (!archivo) return;
 
@@ -461,19 +459,35 @@ inputArchivo.addEventListener("change", (e) => {
     try {
       const datos = JSON.parse(event.target.result);
 
-      if (confirm("Esto reemplazará todos los datos actuales. ¿Continuar?")) {
-
-        // Limpiamos antes
-        localStorage.clear();
-
-        // Restauramos todo
-        for (let clave in datos) {
-          localStorage.setItem(clave, datos[clave]);
-        }
-
-        alert("Datos importados correctamente ✅");
-        location.reload(); // recarga para actualizar la app
+      // 🔒 Verificación de que es de TU app
+      if (datos.app !== "AGENDA_CITAS_V1") {
+        alert("Este archivo no pertenece a la Agenda de Citas ❌");
+        return;
       }
+
+      if (!confirm("Se reemplazarán los datos actuales. ¿Continuar?")) return;
+
+      // 🔄 Asegurar tipos correctos (MUY IMPORTANTE)
+      const clientes = (datos.clientes || []).map(c => ({
+        ...c,
+        id: Number(c.id)
+      }));
+
+      const citas = (datos.citas || []).map(c => ({
+        ...c,
+        id: Number(c.id),
+        clienteId: Number(c.clienteId)
+      }));
+
+      const estadosDias = datos.estadosDias || {};
+
+      // 💾 Guardar solo datos de la agenda
+      localStorage.setItem("clientes", JSON.stringify(clientes));
+      localStorage.setItem("citas", JSON.stringify(citas));
+      localStorage.setItem("estadosDias", JSON.stringify(estadosDias));
+
+      alert("Datos restaurados correctamente ✅");
+      location.reload();
 
     } catch (error) {
       alert("Archivo no válido ❌");
